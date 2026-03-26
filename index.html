@@ -15,7 +15,7 @@
             --bg-obsidian: #05070A;
             --card-dark: #0E121A;
             --glass-border: rgba(0, 255, 255, 0.2);
-            --luxury-grad: linear-gradient(135deg, #00FFFF, #FF00FF, #D4AF37);
+            --luxury-grad: linear-gradient(135deg, #D4AF37, #FF00FF, #00FFFF);
         }
 
         * {
@@ -35,10 +35,9 @@
             left: 0;
             width: 100%;
             height: 72px;
-            background: rgba(5, 7, 10, 0.9);
+            background: rgba(5, 7, 10, 0.95);
             backdrop-filter: blur(20px);
-            border-bottom: 2px solid;
-            border-image: var(--luxury-grad) 1;
+            border-bottom: 1px solid var(--luxury-gold);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -65,18 +64,23 @@
             letter-spacing: -0.5px;
         }
         .brand-sub {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--neon-cyan);
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-left: 8px;
         }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
         .dice-button {
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid var(--neon-cyan);
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(0, 255, 255, 0.1));
+            border: 1px solid var(--luxury-gold);
             color: #fff;
             padding: 8px 20px;
-            border-radius: 4px;
+            border-radius: 40px;
             cursor: pointer;
             transition: 0.3s;
             font-weight: 600;
@@ -86,9 +90,10 @@
             gap: 10px;
         }
         .dice-button:hover {
-            background: var(--neon-cyan);
+            background: linear-gradient(135deg, var(--luxury-gold), var(--neon-cyan));
             color: var(--bg-obsidian);
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            transform: translateY(-2px);
         }
 
         /* Filter Panel Refinement */
@@ -97,10 +102,10 @@
             top: 90px;
             left: 20px;
             z-index: 1001;
-            background: rgba(14, 18, 26, 0.95);
+            background: rgba(14, 18, 26, 0.98);
             backdrop-filter: blur(15px);
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            border: 1px solid var(--luxury-gold);
             padding: 20px;
             width: 280px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.8);
@@ -110,22 +115,59 @@
             font-size: 0.9rem;
             margin-bottom: 15px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-group {
+            margin-bottom: 16px;
+        }
+        .filter-group label {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            display: block;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
         }
         .filter-group select, .filter-group input {
+            width: 100%;
             background: #161B22;
             border: 1px solid #30363D;
             color: white;
-            padding: 10px;
-            border-radius: 6px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .filter-group select:focus, .filter-group input:focus {
+            outline: none;
+            border-color: var(--luxury-gold);
+            box-shadow: 0 0 8px rgba(212, 175, 55, 0.3);
+        }
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
         }
         .filter-btn {
-            background: var(--luxury-grad);
+            background: linear-gradient(135deg, var(--luxury-gold), #b8860b);
             border: none;
             padding: 10px;
-            border-radius: 4px;
-            color: white;
+            border-radius: 10px;
+            color: var(--bg-obsidian);
             font-weight: bold;
             cursor: pointer;
+            flex: 1;
+            transition: 0.2s;
+        }
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+        }
+        .reset-btn {
+            background: rgba(100, 100, 120, 0.5);
+            color: white;
         }
 
         #map {
@@ -147,47 +189,200 @@
             border: 2px solid var(--luxury-gold);
             cursor: pointer;
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: radial-gradient(circle at 30% 30%, #2a2a2a, #1a1a1a);
         }
         .cre-marker:hover {
-            transform: scale(1.2) rotate(10deg);
+            transform: scale(1.2) rotate(5deg);
             box-shadow: 0 0 25px var(--luxury-gold);
         }
 
+        .mapboxgl-popup {
+            max-width: 380px;
+        }
         .mapboxgl-popup-content {
             background: var(--card-dark) !important;
-            border-radius: 12px !important;
+            border-radius: 20px !important;
             padding: 0 !important;
             border: 1px solid var(--luxury-gold) !important;
             box-shadow: 0 25px 50px rgba(0,0,0,0.9) !important;
+            overflow: hidden;
+        }
+        .property-card {
+            width: 100%;
+        }
+        .card-media {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+        .card-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+        .card-media img:hover {
+            transform: scale(1.05);
         }
         .card-badge {
-            background: var(--luxury-gold);
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: linear-gradient(135deg, var(--luxury-gold), #b8860b);
             color: var(--bg-obsidian);
-            font-weight: 900;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+        .card-content {
+            padding: 18px;
+        }
+        .property-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            background: linear-gradient(135deg, #fff, var(--neon-cyan));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         .cost-badge {
+            background: rgba(212, 175, 55, 0.2);
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--luxury-gold);
+            border: 1px solid var(--luxury-gold);
+        }
+        .property-description {
+            font-size: 0.8rem;
+            line-height: 1.4;
+            color: #b0b8c5;
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        .cre-data {
+            background: #0a0e14;
+            border-radius: 14px;
+            padding: 12px;
+            margin: 12px 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            border-left: 3px solid var(--luxury-gold);
+        }
+        .data-point {
+            text-align: left;
+        }
+        .data-point span {
+            display: block;
+            font-size: 0.65rem;
+            color: #8bb3d4;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .data-point strong {
+            font-size: 0.85rem;
+            color: white;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 4px;
+        }
+        .w3w-link {
+            background: linear-gradient(135deg, #0a121c, #0e1620);
+            padding: 10px 12px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 12px 0;
+            font-family: monospace;
+            font-size: 0.75rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .w3w-link a {
             color: var(--neon-cyan);
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid var(--neon-cyan);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .w3w-link a:hover {
+            text-decoration: underline;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
         }
         .btn-sm {
             background: transparent;
+            padding: 10px 12px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.2s;
             border: 1px solid var(--neon-pink);
-            color: var(--neon-pink);
+            flex: 1;
+            justify-content: center;
         }
         .btn-sm:hover {
             background: var(--neon-pink);
-            color: white;
+            color: var(--bg-obsidian);
+            transform: translateY(-2px);
+        }
+        .btn-sm:first-child {
+            border-color: var(--neon-cyan);
+        }
+        .btn-sm:first-child:hover {
+            background: var(--neon-cyan);
+            color: var(--bg-obsidian);
+        }
+        .hashtag-footer {
+            border-top: 1px solid rgba(212, 175, 55, 0.3);
+            margin-top: 12px;
+            padding-top: 12px;
+            font-size: 0.65rem;
+            text-align: center;
+            color: #9ca3af;
+            word-break: break-word;
         }
         .tiktok-badge {
-            border: 1px solid var(--neon-pink);
-            background: rgba(255, 0, 255, 0.05);
+            background: linear-gradient(135deg, #0a121c, #0f1a24);
+            border-radius: 12px;
+            padding: 10px 12px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(255, 0, 255, 0.4);
         }
-        .tiktok-badge i { color: var(--neon-pink); }
+        .tiktok-badge i {
+            font-size: 1.3rem;
+            color: var(--neon-pink);
+        }
 
         @media (max-width: 768px) {
             .filter-panel { display: none; }
-            .brand-text { font-size: 1.1rem; }
+            .brand-text { font-size: 1rem; }
+            .nav-links { gap: 12px; }
+            .dice-button { padding: 6px 12px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -197,42 +392,42 @@
             <i class="fas fa-chart-line logo-icon"></i>
             <div>
                 <span class="brand-text">MAP.CREMARKET.IO</span>
-                <span class="brand-sub">| TikTok UGC Powered</span>
+                <span class="brand-sub">🎥 TikTok CRE Video </span>
             </div>
         </div>
         <div class="nav-links">
-            <a href="#" id="diceBtn" class="dice-button"><i class="fab fa-telegram-plane"></i> TELEGRAM CRE INSIGHT</a>
+            <a href="#" id="diceBtn" class="dice-button"><i class="fab fa-telegram-plane"></i> 🎲 TELEGRAM CRE GROUP</a>
         </div>
     </div>
 
     <!-- Filter Panel -->
     <div class="filter-panel">
-        <h4><i class="fas fa-sliders-h"></i> Filter Properties</h4>
+        <h4><i class="fas fa-sliders-h"></i> 🔍 FILTER PROPERTIES</h4>
         <div class="filter-group">
-            <label><i class="fas fa-tag"></i> Price Range</label>
+            <label><i class="fas fa-tag"></i> 💰 Price Range</label>
             <select id="priceFilter">
-                <option value="all">All Prices</option>
-                <option value="under2m">Under $2M</option>
-                <option value="2m-5m">$2M - $5M</option>
-                <option value="over5m">Over $5M</option>
+                <option value="all">📊 All Prices</option>
+                <option value="under2m">💰 Under $2M</option>
+                <option value="2m-5m">💎 $2M - $5M</option>
+                <option value="over5m">🏆 Over $5M</option>
             </select>
         </div>
         <div class="filter-group">
-            <label><i class="fas fa-building"></i> Building Class</label>
+            <label><i class="fas fa-building"></i> 🏢 Building Class</label>
             <select id="classFilter">
-                <option value="all">All Classes</option>
-                <option value="A">Class A</option>
-                <option value="B">Class B</option>
-                <option value="C">Class C / Value-Add</option>
+                <option value="all">⭐ All Classes</option>
+                <option value="A">🏅 Class A (Luxury)</option>
+                <option value="B">🥈 Class B (Value)</option>
+                <option value="C">🔄 Class C / Value-Add</option>
             </select>
         </div>
         <div class="filter-group">
-            <label><i class="fas fa-vector-square"></i> Min Sq Ft</label>
-            <input type="number" id="sqftFilter" placeholder="Min Sq Ft" value="">
+            <label><i class="fas fa-vector-square"></i> 📐 Min Sq Ft</label>
+            <input type="number" id="sqftFilter" placeholder="📏 Enter min sq ft" value="">
         </div>
         <div class="filter-actions">
-            <button class="filter-btn" id="applyFilterBtn">Apply</button>
-            <button class="filter-btn reset-btn" id="resetFilterBtn">Reset</button>
+            <button class="filter-btn" id="applyFilterBtn">✅ Apply Filters</button>
+            <button class="filter-btn reset-btn" id="resetFilterBtn">🔄 Reset</button>
         </div>
     </div>
 
@@ -241,14 +436,14 @@
     <script>
         // =============================================================
         // MAP.CREMARKET.IO | TikTok UGC Powered - CRE Properties
-        // Each property now has a unique Imgur image in the card header
+        // Enhanced UX with emojis and luxury cyberpunk styling
         // =============================================================
         const creProperties = [
             {
-                name: "2198-2200 Cheshire Bridge Rd",
+                name: "🏗️ 2198-2200 Cheshire Bridge Rd",
                 location: [-84.3615, 33.8118],
-                image: "https://i.imgur.com/ihqL0dC.jpeg",
-                info: "Iconic Cheshire Bridge Rd frontage. High traffic counts, MRC-3 zoning allows density. Massive redevelopment potential.",
+                image: "https://i.imgur.com/yFtNxSb.jpeg",
+                info: "📍 Iconic Cheshire Bridge Rd frontage. 📈 High traffic counts (25k+ VPD), 🏗️ MRC-3 zoning allows density. 🚀 Massive redevelopment potential.",
                 price: "$2,950,000",
                 priceValue: 2950000,
                 buildingClass: "C",
@@ -256,25 +451,25 @@
                 emoji: "🏗️",
                 propertyTypeIcon: "🏗️",
                 creData: {
-                    propertyType: "Mixed-Use / Retail / Dev Land",
-                    sqft: "~6,400 SF building | 0.38 AC",
-                    occupancy: "Value-Add Opportunity",
-                    capRate: "Redevelopment Play",
-                    yearBuilt: "1960",
-                    zoning: "MRC-3-C",
-                    vpd: "25,000+ VPD"
+                    propertyType: "🏢 Mixed-Use / Retail / Dev Land",
+                    sqft: "📏 ~6,400 SF building | 🌍 0.38 AC",
+                    occupancy: "📊 Value-Add Opportunity",
+                    capRate: "📈 Redevelopment Play",
+                    yearBuilt: "📅 1960",
+                    zoning: "📋 MRC-3-C",
+                    vpd: "🚗 25,000+ VPD"
                 },
-                tiktokUGC: "https://www.tiktok.com/@creinsight/video/742895672345",
+                tiktokOM: "https://www.tiktok.com/@cremarket/video/7618911958212906270",
                 w3w: "pouch.frozen.levels",
                 qrMapLink: "https://what3words.com/pouch.frozen.levels",
-                ugcEmbed: "🎥 TikTok Blueprint: <a href='https://www.tiktok.com/@creinsight/video/742895672345' target='_blank' style='color:#ff6b35;'>Cheshire Bridge Tour</a>",
-                hashtags: "#CheshireBridge #AtlantaRealEstate #IntownATL #CREDevelopment"
+                ugcEmbed: "🎥 TikTok Blueprint: <a href='https://www.tiktok.com/effect/helpfulpyramidstuff-4041047841' target='_blank' style='color:#00FFFF;'>TikTok UGC</a>",
+                hashtags: "#pouchfrozenlevels"
             },
             {
-                name: "4255 Shirley Dr | QSR / Industrial",
+                name: "🍟 4255 Shirley Dr | QSR / Industrial",
                 location: [-84.5035, 33.7360],
-                image: "https://i.imgur.com/GgTzLZb.jpeg",
-                info: "Generous 0.62 AC lot, 29 parking spaces, ideal for QSR or ghost kitchen. Next to Fulton County development.",
+                image: "https://i.imgur.com/HMlPrf5.jpeg",
+                info: "🍔 Generous 0.62 AC lot, 🚗 29 parking spaces, ideal for QSR or ghost kitchen. 📍 Next to Fulton County development project.",
                 price: "$465,000",
                 priceValue: 465000,
                 buildingClass: "C",
@@ -282,51 +477,51 @@
                 emoji: "🍟",
                 propertyTypeIcon: "🍟",
                 creData: {
-                    propertyType: "Retail / Freestanding",
-                    sqft: "1,700 SF building | 0.62 AC",
-                    occupancy: "Distress Sale",
-                    capRate: "Value-add",
-                    yearBuilt: "1986",
-                    zoning: "M2 (Industrial)",
-                    parking: "29 spaces"
+                    propertyType: "🏪 Retail / Freestanding",
+                    sqft: "🏢 1,700 SF building | 🌍 0.62 AC",
+                    occupancy: "🔥 Distress Sale Opportunity",
+                    capRate: "💎 Value-add potential",
+                    yearBuilt: "📅 1986",
+                    zoning: "🏭 M2 (Industrial)",
+                    parking: "🅿️ 29 spaces"
                 },
-                tiktokUGC: "https://www.tiktok.com/@atlantacommercial/video/743112567891",
-                w3w: "glare.faded.fakes",
-                qrMapLink: "https://what3words.com/glare.faded.fakes",
-                ugcEmbed: "🍟 TikTok UGC: <a href='https://www.tiktok.com/@atlantacommercial/video/743112567891' target='_blank' style='color:#ff6b35;'>QSR Potential Reel</a>",
-                hashtags: "#AtlantaRealEstate #WestAtlantaCRE #QSRInvesting"
+                tiktokUGC: "https://www.tiktok.com/@cremarket/video/7621642521017421087",
+                w3w: "foyer.enable.walled",
+                qrMapLink: "https://what3words.com/foyer.enable.walled",
+                ugcEmbed: "🍟 QSR Potential Reel: <a href='https://www.tiktok.com/effect/foyerenablewalled-4041048379' target='_blank' style='color:#00FFFF;'>TikTok UGC</a>",
+                hashtags: "#FoyerEnableWalled"
             },
             {
-                name: "3640 Royal South Pky | Class A Distribution",
+                name: "🚛 3640 Royal South Pky | Class A Distribution",
                 location: [-84.5225, 33.6355],
                 image: "https://i.imgur.com/9vHILFw.jpeg",
-                info: "116,848 SF Class A warehouse, 32 dock-high doors, 24' clear height, ESFR sprinklers. I-85 access.",
-                price: "Lease",
+                info: "🏭 116,848 SF Class A warehouse, 🚪 32 dock-high doors, 📦 24' clear height, 🔥 ESFR sprinklers. 🛣️ I-85 access.",
+                price: "📋 Lease",
                 priceValue: 0,
                 buildingClass: "A",
                 sqft: 116848,
                 emoji: "🚛",
                 propertyTypeIcon: "🚛",
                 creData: {
-                    propertyType: "Industrial / Distribution",
-                    sqft: "116,848 SF",
-                    occupancy: "Immediate Availability",
-                    capRate: "Lease comps 7%+",
-                    yearBuilt: "2015",
-                    zoning: "M-1",
-                    dockDoors: "32 dock + 2 drive-in"
+                    propertyType: "🏭 Industrial / Distribution",
+                    sqft: "📦 116,848 SF",
+                    occupancy: "✅ Immediate Availability",
+                    capRate: "📊 Lease comps 7%+",
+                    yearBuilt: "📅 2015",
+                    zoning: "📋 M-1",
+                    dockDoors: "🚪 32 dock + 2 drive-in"
                 },
                 tiktokUGC: "https://www.tiktok.com/@industrialre/video/742338910234",
                 w3w: "faded.stole.glaze",
                 qrMapLink: "https://what3words.com/faded.stole.glaze",
-                ugcEmbed: "🚛 Drone Logistics: <a href='https://www.tiktok.com/@industrialre/video/742338910234' target='_blank' style='color:#ff6b35;'>Warehouse Tour</a>",
-                hashtags: "#ATLwarehouse #AtlantaLogistics #IndustrialRealEstate"
+                ugcEmbed: "🚛 Drone Logistics Tour",
+                hashtags: "#ATLwarehouse #AtlantaLogistics #IndustrialRealEstate #SupplyChain"
             },
             {
-                name: "French Quarter Apartments | 23 Units",
+                name: "🏘️ French Quarter Apartments | 23 Units",
                 location: [-84.3610, 33.8485],
                 image: "https://i.imgur.com/JgqFSUb.jpeg",
-                info: "23-unit multifamily, 52% occupancy → massive value-add. Walkable to Lenox Square. Furnished Airbnb units.",
+                info: "🏘️ 23-unit multifamily, 📊 52% occupancy → massive value-add. 🛍️ Walkable to Lenox Square. 🏠 Furnished Airbnb units.",
                 price: "$3,450,000",
                 priceValue: 3450000,
                 buildingClass: "B",
@@ -334,25 +529,25 @@
                 emoji: "🏘️",
                 propertyTypeIcon: "🏘️",
                 creData: {
-                    propertyType: "Multifamily / Mid-Rise",
-                    sqft: "9,200 SF building",
-                    occupancy: "52% (Upside to 95%)",
-                    capRate: "3.83% (pro-forma >6%)",
-                    yearBuilt: "1967",
-                    zoning: "RG2",
-                    avgRent: "$1,101 → potential $1,536"
+                    propertyType: "🏢 Multifamily / Mid-Rise",
+                    sqft: "🏠 9,200 SF building",
+                    occupancy: "📈 52% (Upside to 95%)",
+                    capRate: "💰 3.83% (pro-forma >6%)",
+                    yearBuilt: "📅 1967",
+                    zoning: "📋 RG2",
+                    avgRent: "💵 $1,101 → potential $1,536"
                 },
                 tiktokUGC: "https://www.tiktok.com/@atlantacreative/video/744025671234",
                 w3w: "filled.count.soap",
                 qrMapLink: "https://what3words.com/filled.count.soap",
-                ugcEmbed: "🏘️ UGC Walkthrough: <a href='https://www.tiktok.com/@atlantacreative/video/744025671234' target='_blank' style='color:#ff6b35;'>Buckhead Units</a>",
-                hashtags: "#BuckheadRealEstate #MultifamilyInvesting #CRE"
+                ugcEmbed: "🏘️ Buckhead Units Tour",
+                hashtags: "#BuckheadRealEstate #MultifamilyInvesting #CRE #FrenchQuarterApartments"
             },
             {
-                name: "3300 Hamilton Blvd SE | Turn-Key Industrial",
+                name: "🏭 3300 Hamilton Blvd SE | Turn-Key Industrial",
                 location: [-84.4112, 33.6635],
                 image: "https://i.imgur.com/placeholder_industrial.jpg",
-                info: "Fully renovated 2021 warehouse, 13,257 SF, 3 dock doors, fenced yard, near ATL airport.",
+                info: "🔧 Fully renovated 2021 warehouse, 📏 13,257 SF, 🚪 3 dock doors, 🔒 fenced yard, ✈️ near ATL airport.",
                 price: "$1,650,000",
                 priceValue: 1650000,
                 buildingClass: "B",
@@ -360,25 +555,25 @@
                 emoji: "🏭",
                 propertyTypeIcon: "🏭",
                 creData: {
-                    propertyType: "Industrial / Warehouse",
-                    sqft: "13,257 SF | ~1 Acre",
-                    occupancy: "Move-in Ready",
-                    capRate: "Cap ~6.5% pro-forma",
-                    yearBuilt: "1980 / Renovated 2021",
-                    zoning: "I1",
-                    dockDoors: "3 dock-high + indoor parking"
+                    propertyType: "🏭 Industrial / Warehouse",
+                    sqft: "📏 13,257 SF | 🌍 ~1 Acre",
+                    occupancy: "🔑 Move-in Ready",
+                    capRate: "📊 Cap ~6.5% pro-forma",
+                    yearBuilt: "📅 1980 / Renovated 2021",
+                    zoning: "📋 I1",
+                    dockDoors: "🚪 3 dock-high + indoor parking"
                 },
                 tiktokUGC: "https://www.tiktok.com/effect/sorrywiresquare-4041054686",
                 w3w: "sorry.wire.square",
                 qrMapLink: "https://what3words.com/sorry.wire.square",
-                ugcEmbed: "✈️ TikTok Effect: <a href='https://www.tiktok.com/effect/sorrywiresquare-4041054686' target='_blank' style='color:#ff6b35;'>AR Filter Tour</a>",
-                hashtags: "#ATLwarehouse #AtlantaIndustrial #AirportRealEstate"
+                ugcEmbed: "✈️ AR Filter Tour",
+                hashtags: "#ATLwarehouse #AtlantaIndustrial #AirportRealEstate #HapevilleGA"
             },
             {
-                name: "1239 Willingham Dr | Ghost Kitchen",
+                name: "🍳 1239 Willingham Dr | Ghost Kitchen",
                 location: [-84.4510, 33.6850],
                 image: "https://i.imgur.com/placeholder_ghostkitchen.jpg",
-                info: "Unique 8,894 SF with prep kitchen & cooler, 1 dock door + expansion potential. Near I-85 & airport.",
+                info: "🍳 Unique 8,894 SF with prep kitchen & cooler, 🚪 1 dock door + expansion potential. 🛣️ Near I-85 & airport.",
                 price: "$1,500,000",
                 priceValue: 1500000,
                 buildingClass: "C",
@@ -386,25 +581,25 @@
                 emoji: "🍳",
                 propertyTypeIcon: "🍳",
                 creData: {
-                    propertyType: "Industrial / Food Prep",
-                    sqft: "8,894 SF | 1.12 AC",
-                    occupancy: "Owner-User Gem",
-                    capRate: "Rare asset",
-                    yearBuilt: "1980",
-                    zoning: "Light Industrial",
-                    kitchen: "Prep kitchen + cooler"
+                    propertyType: "🍳 Industrial / Food Prep",
+                    sqft: "📏 8,894 SF | 🌍 1.12 AC",
+                    occupancy: "👨‍🍳 Owner-User Gem",
+                    capRate: "💎 Rare asset",
+                    yearBuilt: "📅 1980",
+                    zoning: "🏭 Light Industrial",
+                    kitchen: "🍳 Prep kitchen + cooler"
                 },
                 tiktokUGC: "https://www.tiktok.com/@chefstartup/video/744112345678",
                 w3w: "guarded.pushed.bids",
                 qrMapLink: "https://what3words.com/guarded.pushed.bids",
-                ugcEmbed: "🍳 Food Logistics: <a href='https://www.tiktok.com/@chefstartup/video/744112345678' target='_blank' style='color:#ff6b35;'>Ghost Kitchen Tour</a>",
-                hashtags: "#GhostKitchen #EastPointCRE #FoodLogistics"
+                ugcEmbed: "🍳 Ghost Kitchen Tour",
+                hashtags: "#GhostKitchen #EastPointCRE #FoodLogistics #AtlantaIndustrial"
             },
             {
-                name: "650 Fairburn Rd SW | Heavy Industrial Yard",
+                name: "🚜 650 Fairburn Rd SW | Heavy Industrial Yard",
                 location: [-84.4740, 33.7100],
                 image: "https://i.imgur.com/placeholder_yard.jpg",
-                info: "3 buildings, 31,822 SF on 9.54 acres, cleared yard space, 20' clear height, I-285 access.",
+                info: "🏢 3 buildings, 📏 31,822 SF on 🌍 9.54 acres, 🚛 cleared yard space, 📦 20' clear height, 🛣️ I-285 access.",
                 price: "$4,000,000",
                 priceValue: 4000000,
                 buildingClass: "C",
@@ -412,45 +607,45 @@
                 emoji: "🚜",
                 propertyTypeIcon: "🚜",
                 creData: {
-                    propertyType: "Industrial / Yard Space",
-                    sqft: "31,822 SF (3 bldgs) | 9.54 AC",
-                    occupancy: "Owner-User Flex",
-                    capRate: "Value-add",
-                    yearBuilt: "1972",
-                    zoning: "M-1",
-                    yard: "4-5 cleared acres"
+                    propertyType: "🚛 Industrial / Yard Space",
+                    sqft: "🏢 31,822 SF (3 bldgs) | 🌍 9.54 AC",
+                    occupancy: "🔑 Owner-User Flex",
+                    capRate: "📈 Value-add",
+                    yearBuilt: "📅 1972",
+                    zoning: "📋 M-1",
+                    yard: "🌾 4-5 cleared acres"
                 },
                 tiktokUGC: "https://www.tiktok.com/@industrialyards/video/744998776655",
                 w3w: "guilty.limit.voters",
                 qrMapLink: "https://what3words.com/guilty.limit.voters",
-                ugcEmbed: "🏗️ Yard Space Tour: <a href='https://www.tiktok.com/@industrialyards/video/744998776655' target='_blank' style='color:#ff6b35;'>9.5 Acre Site</a>",
-                hashtags: "#ATLwarehouse #YardSpace #SWAtlanta"
+                ugcEmbed: "🏗️ 9.5 Acre Site Tour",
+                hashtags: "#ATLwarehouse #YardSpace #SWAtlanta #OwnerUser #TruckParkingAtlanta"
             },
             {
-                name: "675 Great Southwest Pkwy | Logistics Hub",
+                name: "📦 675 Great Southwest Pkwy | Logistics Hub",
                 location: [-84.5385, 33.7240],
                 image: "https://i.imgur.com/placeholder_logistics.jpg",
-                info: "High-velocity distribution, dock-high doors, immediate I-20 access, Fulton Industrial core.",
-                price: "Lease",
+                info: "🚚 High-velocity distribution, 🚪 dock-high doors, 🛣️ immediate I-20 access, 🏭 Fulton Industrial core.",
+                price: "📋 Lease",
                 priceValue: 0,
                 buildingClass: "A",
                 sqft: 15000,
                 emoji: "📦",
                 propertyTypeIcon: "📦",
                 creData: {
-                    propertyType: "Industrial / Flex",
-                    sqft: "10,000 - 15,000 SF flex",
-                    occupancy: "Ready to Lease",
-                    capRate: "Market leading",
-                    yearBuilt: "2005",
-                    zoning: "M-1A",
-                    intermodal: "Norfolk Southern nearby"
+                    propertyType: "📦 Industrial / Flex",
+                    sqft: "📏 10,000 - 15,000 SF flex",
+                    occupancy: "✅ Ready to Lease",
+                    capRate: "🏆 Market leading",
+                    yearBuilt: "📅 2005",
+                    zoning: "📋 M-1A",
+                    intermodal: "🚂 Norfolk Southern nearby"
                 },
                 tiktokUGC: "https://www.tiktok.com/@logisticshub/video/744998776656",
                 w3w: "flame.hurry.soft",
                 qrMapLink: "https://what3words.com/flame.hurry.soft",
-                ugcEmbed: "📦 Logistics Tour: <a href='https://www.tiktok.com/@logisticshub/video/744998776656' target='_blank' style='color:#ff6b35;'>Distribution Walkthrough</a>",
-                hashtags: "#FultonIndustrial #AtlantaLogistics #DistributionCenter"
+                ugcEmbed: "📦 Distribution Walkthrough",
+                hashtags: "#FultonIndustrial #AtlantaLogistics #DistributionCenter #CRE #Cremarket"
             }
         ];
 
@@ -473,9 +668,9 @@
 
         function getClassColor(propertyClass) {
             switch(propertyClass) {
-                case 'A': return '#ffd700';
-                case 'B': return '#c0c0c0';
-                default: return '#cd7f32';
+                case 'A': return '#D4AF37';
+                case 'B': return '#C0C0C0';
+                default: return '#CD7F32';
             }
         }
 
@@ -483,8 +678,8 @@
             const el = document.createElement('div');
             el.className = 'cre-marker';
             el.innerHTML = property.emoji;
-            el.style.background = `radial-gradient(circle at 30% 30%, ${getClassColor(property.buildingClass)}, #2a2a2a)`;
-            el.style.boxShadow = `0 0 12px ${getClassColor(property.buildingClass)}80`;
+            el.style.background = `radial-gradient(circle at 30% 30%, ${getClassColor(property.buildingClass)}, #1a1a1a)`;
+            el.style.boxShadow = `0 0 12px ${getClassColor(property.buildingClass)}`;
             
             const data = property.creData;
             const capDisplay = data.capRate ? `${data.capRate}` : '—';
@@ -500,25 +695,27 @@
                         <div class="property-name">
                             ${property.name} <span class="cost-badge">${property.price}</span>
                         </div>
-                        <div style="font-size:0.75rem; margin-bottom:6px;">${property.info}</div>
+                        <div class="property-description">
+                            ${property.info}
+                        </div>
                         <div class="cre-data">
-                            <div class="data-point"><span>Property Type</span><strong>${data.propertyType}</strong></div>
-                            <div class="data-point"><span>Size</span><strong>${data.sqft}</strong></div>
-                            <div class="data-point"><span>Occupancy</span><strong>${data.occupancy}</strong></div>
-                            <div class="data-point"><span>Cap Rate</span><strong>${capDisplay}</strong></div>
-                            ${data.zoning ? `<div class="data-point"><span>Zoning</span><strong>${data.zoning}</strong></div>` : ''}
-                            ${data.yearBuilt ? `<div class="data-point"><span>Year Built</span><strong>${data.yearBuilt}</strong></div>` : ''}
+                            <div class="data-point"><span>🏢 Property Type</span><strong>${data.propertyType}</strong></div>
+                            <div class="data-point"><span>📐 Size</span><strong>${data.sqft}</strong></div>
+                            <div class="data-point"><span>📊 Occupancy</span><strong>${data.occupancy}</strong></div>
+                            <div class="data-point"><span>💰 Cap Rate</span><strong>${capDisplay}</strong></div>
+                            ${data.zoning ? `<div class="data-point"><span>📋 Zoning</span><strong>${data.zoning}</strong></div>` : ''}
+                            ${data.yearBuilt ? `<div class="data-point"><span>📅 Year Built</span><strong>${data.yearBuilt}</strong></div>` : ''}
                         </div>
                         <div class="w3w-link">
-                            📍 <a href="${property.qrMapLink}" target="_blank" style="color:#ff6b35;">///${property.w3w}</a> — click for exact pin
+                            📍 <a href="${property.qrMapLink}" target="_blank" style="color:#00FFFF;">///${property.w3w}</a> 🔗 click for exact pin
                         </div>
                         <div class="tiktok-badge">
-                            <i class="fab fa-tiktok" style="color:#ff6b35; font-size:1.2rem;"></i>
-                            <strong>TIKTOK EXCLUSIVE</strong>
+                            <i class="fab fa-tiktok"></i>
+                            <strong>🎵 TIKTOK EXCLUSIVE CONTENT</strong>
                         </div>
                         <div class="action-buttons">
-                            <a href="${property.tiktokUGC}" target="_blank" class="btn-sm"><i class="fab fa-tiktok"></i> Watch Video</a>
-                            <a href="${property.qrMapLink}" target="_blank" class="btn-sm"><i class="fas fa-qrcode"></i> Map QR</a>
+                            <a href="${property.tiktokUGC}" target="_blank" class="btn-sm"><i class="fab fa-tiktok"></i> 🎬 Watch Video</a>
+                            <a href="${property.qrMapLink}" target="_blank" class="btn-sm"><i class="fas fa-qrcode"></i> 📍 Map QR</a>
                         </div>
                         <div class="hashtag-footer">
                             <i class="fas fa-hashtag"></i> #${formatW3WHashtag(property.w3w)} · ${property.hashtags} · #CREmarket
@@ -574,38 +771,28 @@
             const roll = Math.floor(Math.random() * 6) + 1;
             const randomProp = creProperties[Math.floor(Math.random() * creProperties.length)];
             const marketFacts = [
-                `📊 ATL industrial vacancy: 4.2% | Rents up +8.1% YoY | ${randomProp.emoji} ${randomProp.name}`,
-                `🏗️ Multifamily value-add: 52% occupancy → 95% potential → IRRs 18%+ pro-forma`,
-                `💸 Cap rate compression: Class A office now 6.2-6.8% in Midtown, investor demand high`,
-                `📍 Hot zone: Cheshire Bridge MRC-3 zoning allows 5-7 story mixed-use, 25k VPD`,
-                `📈 Industrial outdoor storage (IOS) premiums +22% across SW Atlanta`,
-                `🔑 TikTok viral asset: ${randomProp.name} — ${randomProp.creData.propertyType} | ${randomProp.price}`
+                `🎲 ROLL ${roll} | 📊 ATL industrial vacancy: 4.2% | Rents up +8.1% YoY | ${randomProp.emoji} ${randomProp.name}`,
+                `🎲 ROLL ${roll} | 🏗️ Multifamily value-add: 52% occupancy → 95% potential → IRRs 18%+ pro-forma`,
+                `🎲 ROLL ${roll} | 💸 Cap rate compression: Class A office now 6.2-6.8% in Midtown, investor demand high`,
+                `🎲 ROLL ${roll} | 📍 Hot zone: Cheshire Bridge MRC-3 zoning allows 5-7 story mixed-use, 25k VPD`,
+                `🎲 ROLL ${roll} | 📈 Industrial outdoor storage (IOS) premiums +22% across SW Atlanta`,
+                `🎲 ROLL ${roll} | 🔑 TikTok viral asset: ${randomProp.name} — ${randomProp.creData.propertyType} | ${randomProp.price}`
             ];
             const insight = marketFacts[(roll - 1) % marketFacts.length];
             const center = map.getCenter();
             new mapboxgl.Popup({ closeOnClick: true, className: 'insight-popup', closeButton: false })
                 .setLngLat([center.lng, center.lat])
-                .setHTML(`<div style="background:#0a1420e6; backdrop-filter:blur(12px); padding:14px 20px; border-radius:36px; border-left:5px solid #ff6b35; font-weight:500;"><i class="fab fa-telegram-plane"></i> <strong>🎲 TELEGRAM CRE INSIGHT • ROLL ${roll}</strong><br>${insight}</div>`)
+                .setHTML(`<div style="background:linear-gradient(135deg, #0a1420, #0a0e14); backdrop-filter:blur(12px); padding:16px 24px; border-radius:40px; border-left:4px solid #D4AF37; font-weight:500;"><i class="fab fa-telegram-plane" style="color:#D4AF37;"></i> <strong style="color:#D4AF37;">🎲 TELEGRAM CRE INSIGHT • ${insight}</strong></div>`)
                 .addTo(map);
             setTimeout(() => {
                 const popups = document.getElementsByClassName('mapboxgl-popup');
                 if(popups.length) popups[popups.length-1]?.remove();
-            }, 4700);
+            }, 5000);
         }
 
         document.getElementById('diceBtn').addEventListener('click', (e) => {
             e.preventDefault();
             rollDiceInsight();
-        });
-        document.getElementById('exploreBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            map.flyTo({ center: [-84.3870, 33.7750], zoom: 13.5, pitch: 55 });
-        });
-        document.getElementById('portfolioBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            const bounds = new mapboxgl.LngLatBounds();
-            creProperties.forEach(p => bounds.extend(p.location));
-            map.fitBounds(bounds, { padding: 70, duration: 1000 });
         });
     </script>
 </body>
