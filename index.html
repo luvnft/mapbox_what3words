@@ -3,12 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>TikTok CRE Map | ATL Property Hub</title>
+    <title>MAP.CREMARKET.IO | TikTok UGC Powered</title>
     <!-- Mapbox GL JS & CSS -->
     <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
     <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
-    <!-- What3Words Core JS -->
-    <script src="https://cdn.what3words.com/javascript-components@4-latest/dist/what3words/what3words.js?key=29IK5VZP"></script>
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -19,7 +17,7 @@
         }
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background: #050b15;
+            background: #0a0c12;
             overflow: hidden;
             color: #eef4ff;
         }
@@ -28,10 +26,10 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 64px;
-            background: rgba(8, 18, 28, 0.94);
+            height: 68px;
+            background: rgba(10, 12, 18, 0.96);
             backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(0, 255, 255, 0.4);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.4);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -46,21 +44,22 @@
         }
         .logo-icon {
             font-size: 28px;
-            color: #0ff;
-            text-shadow: 0 0 6px #0ff;
+            color: #ff6b35;
+            text-shadow: 0 0 6px #ff6b35;
         }
         .brand-text {
             font-size: 1.35rem;
-            background: linear-gradient(135deg, #ffffff, #88f7ff);
+            background: linear-gradient(135deg, #ffffff, #ff6b35);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             font-weight: 700;
         }
         .brand-sub {
-            font-size: 0.75rem;
-            color: #9bb8da;
+            font-size: 0.7rem;
+            color: #ff6b35;
             margin-left: 4px;
+            font-weight: 500;
         }
         .nav-links {
             display: flex;
@@ -78,12 +77,12 @@
             gap: 8px;
         }
         .nav-links a:hover {
-            color: #0ff;
-            text-shadow: 0 0 4px cyan;
+            color: #ff6b35;
+            text-shadow: 0 0 4px #ff6b35;
         }
         .dice-button {
-            background: rgba(0, 255, 255, 0.12);
-            border: 1px solid rgba(0, 255, 255, 0.6);
+            background: rgba(255, 107, 53, 0.15);
+            border: 1px solid rgba(255, 107, 53, 0.6);
             padding: 6px 16px;
             border-radius: 40px;
             cursor: pointer;
@@ -91,67 +90,98 @@
             font-weight: 600;
         }
         .dice-button:hover {
-            background: rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 10px cyan;
+            background: rgba(255, 107, 53, 0.3);
+            box-shadow: 0 0 10px #ff6b35;
             transform: scale(1.02);
         }
-        .search-panel {
+        /* Filter Panel */
+        .filter-panel {
             position: fixed;
-            top: 80px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 84px;
+            left: 20px;
             z-index: 1001;
-            width: 360px;
-            background: rgba(12, 22, 35, 0.96);
+            background: rgba(10, 12, 18, 0.95);
             backdrop-filter: blur(12px);
-            border-radius: 60px;
-            border: 1px solid rgba(0, 255, 255, 0.5);
-            padding: 4px 8px 4px 20px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 107, 53, 0.4);
+            padding: 16px;
+            width: 260px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+        }
+        .filter-panel h4 {
+            color: #ff6b35;
+            font-size: 0.85rem;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
         }
-        .search-panel i {
-            color: #0ff;
+        .filter-group {
+            margin-bottom: 14px;
         }
-        #w3w-input {
-            background: transparent;
-            border: none;
-            padding: 12px 0;
-            color: white;
-            font-size: 0.9rem;
+        .filter-group label {
+            font-size: 0.7rem;
+            color: #9bb8da;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .filter-group select, .filter-group input {
             width: 100%;
-            outline: none;
-            font-family: monospace;
+            background: #1a1f2a;
+            border: 1px solid #2a2f3a;
+            color: white;
+            padding: 8px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
         }
-        #w3w-input::placeholder {
-            color: #7f9cbb;
-            font-family: 'Inter', sans-serif;
+        .filter-group select:focus, .filter-group input:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+        .filter-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+        .filter-btn {
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid rgba(255, 107, 53, 0.5);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            color: white;
+            flex: 1;
+            text-align: center;
+        }
+        .filter-btn:hover {
+            background: rgba(255, 107, 53, 0.4);
+        }
+        .reset-btn {
+            background: rgba(100, 100, 120, 0.3);
+            border-color: rgba(150, 150, 170, 0.5);
         }
         #map {
             position: absolute;
-            top: 64px;
+            top: 68px;
             bottom: 0;
             width: 100%;
         }
         .cre-marker {
-            background: radial-gradient(circle at 30% 30%, #ff0050, #8a2be2);
-            width: 44px;
-            height: 44px;
-            border-radius: 50% 50% 50% 8px;
-            transform: rotate(45deg);
-            box-shadow: 0 0 14px rgba(255, 0, 80, 0.8), 0 2px 10px black;
-            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            filter: drop-shadow(0 2px 6px rgba(0,0,0,0.5));
         }
-        .cre-marker::after {
-            content: "🎵";
-            transform: rotate(-45deg);
-            font-size: 20px;
-            filter: drop-shadow(0 0 2px black);
+        .cre-marker:hover {
+            transform: scale(1.1);
         }
         .mapboxgl-popup {
             max-width: 380px;
@@ -160,7 +190,7 @@
             background: #0e1a26;
             border-radius: 24px;
             padding: 0;
-            border: 1px solid rgba(255, 0, 80, 0.6);
+            border: 1px solid rgba(255, 107, 53, 0.6);
             box-shadow: 0 20px 30px rgba(0,0,0,0.6);
             overflow: hidden;
         }
@@ -170,7 +200,7 @@
         }
         .card-media {
             position: relative;
-            height: 170px;
+            height: 140px;
             background: linear-gradient(135deg, #1a2a3a, #0f1a24);
             overflow: hidden;
             display: flex;
@@ -179,7 +209,6 @@
         }
         .card-media i {
             font-size: 48px;
-            color: #ff0050;
             opacity: 0.8;
         }
         .card-badge {
@@ -192,14 +221,14 @@
             border-radius: 30px;
             font-size: 0.7rem;
             font-weight: bold;
-            color: #ff0050;
-            border: 0.5px solid #ff0050;
+            color: #ff6b35;
+            border: 0.5px solid #ff6b35;
         }
         .card-content {
             padding: 16px;
         }
         .property-name {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 800;
             margin-bottom: 6px;
             display: flex;
@@ -214,17 +243,17 @@
             margin: 12px 0;
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            border-left: 3px solid #ff0050;
+            gap: 10px;
+            border-left: 3px solid #ff6b35;
         }
         .data-point span {
             display: block;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #8bb3d4;
             letter-spacing: 0.3px;
         }
         .data-point strong {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: white;
             font-weight: 700;
         }
@@ -235,10 +264,10 @@
             text-align: center;
             margin: 12px 0;
             font-family: monospace;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
         }
         .w3w-link a {
-            color: #ff0050;
+            color: #ff6b35;
             text-decoration: none;
             font-weight: bold;
         }
@@ -249,31 +278,30 @@
             flex-wrap: wrap;
         }
         .btn-sm {
-            background: rgba(255, 0, 80, 0.15);
+            background: rgba(255, 107, 53, 0.15);
             padding: 8px 12px;
             border-radius: 30px;
             text-decoration: none;
             color: white;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             display: inline-flex;
             align-items: center;
             gap: 6px;
             transition: 0.2s;
-            border: 0.5px solid rgba(255, 0, 80, 0.5);
+            border: 0.5px solid rgba(255, 107, 53, 0.5);
             flex: 1 0 auto;
             justify-content: center;
         }
         .btn-sm:hover {
-            background: rgba(255, 0, 80, 0.35);
-            color: #ff9fbf;
-            transform: scale(1.02);
+            background: rgba(255, 107, 53, 0.35);
+            color: #ffbf9f;
         }
         .hashtag-footer {
             border-top: 1px solid #2c3e4e;
             margin-top: 12px;
             padding-top: 10px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             text-align: center;
             color: #6c9ac3;
         }
@@ -285,23 +313,33 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            font-size: 0.75rem;
-            border: 1px solid rgba(255, 0, 80, 0.3);
+            font-size: 0.7rem;
+            border: 1px solid rgba(255, 107, 53, 0.3);
         }
-        @media (max-width: 640px) {
+        .cost-badge {
+            background: #ff6b3520;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: #ff6b35;
+        }
+        @media (max-width: 768px) {
+            .filter-panel {
+                display: none;
+            }
             .brand-text { font-size: 1rem; }
             .nav-links { gap: 12px; }
-            .search-panel { width: 280px; }
         }
     </style>
 </head>
 <body>
     <div class="cre-header">
         <div class="logo-area">
-            <i class="fab fa-tiktok logo-icon" style="color:#ff0050;"></i>
+            <i class="fas fa-chart-line logo-icon"></i>
             <div>
-                <span class="brand-text">TIKTOK CRE MAP</span>
-                <span class="brand-sub">| viral property intelligence</span>
+                <span class="brand-text">MAP.CREMARKET.IO</span>
+                <span class="brand-sub">| TikTok UGC Powered</span>
             </div>
         </div>
         <div class="nav-links">
@@ -311,23 +349,55 @@
         </div>
     </div>
 
-    <div class="search-panel">
-        <i class="fas fa-map-pin"></i>
-        <input id="w3w-input" type="text" placeholder="what3words /// e.g. pouch.frozen.levels" onkeypress="searchW3W(event)">
-        <i class="fas fa-search" style="opacity:0.7;"></i>
+    <!-- Filter Panel -->
+    <div class="filter-panel">
+        <h4><i class="fas fa-sliders-h"></i> Filter Properties</h4>
+        <div class="filter-group">
+            <label><i class="fas fa-tag"></i> Price Range</label>
+            <select id="priceFilter">
+                <option value="all">All Prices</option>
+                <option value="under2m">Under $2M</option>
+                <option value="2m-5m">$2M - $5M</option>
+                <option value="over5m">Over $5M</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label><i class="fas fa-building"></i> Building Class</label>
+            <select id="classFilter">
+                <option value="all">All Classes</option>
+                <option value="A">Class A</option>
+                <option value="B">Class B</option>
+                <option value="C">Class C / Value-Add</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label><i class="fas fa-vector-square"></i> Min Sq Ft</label>
+            <input type="number" id="sqftFilter" placeholder="Min Sq Ft" value="">
+        </div>
+        <div class="filter-actions">
+            <button class="filter-btn" id="applyFilterBtn">Apply</button>
+            <button class="filter-btn reset-btn" id="resetFilterBtn">Reset</button>
+        </div>
     </div>
+
     <div id="map"></div>
 
     <script>
         // =============================================================
-        // TIKTOK-FIRST CRE MAP — NO LOOPNET LINKS
-        // Every property features TikTok UGC, CRE data points, what3words
+        // MAP.CREMARKET.IO | TikTok UGC Powered - CRE Properties
+        // Each emoji reflects property type, includes building class & generic cost
         // =============================================================
         const creProperties = [
             {
                 name: "2198-2200 Cheshire Bridge Rd",
                 location: [-84.3615, 33.8118],
                 info: "Iconic Cheshire Bridge Rd frontage. High traffic counts, MRC-3 zoning allows density. Massive redevelopment potential.",
+                price: "$2,950,000",
+                priceValue: 2950000,
+                buildingClass: "C",
+                sqft: 6400,
+                emoji: "🏗️",
+                propertyTypeIcon: "🏗️",
                 creData: {
                     propertyType: "Mixed-Use / Retail / Dev Land",
                     sqft: "~6,400 SF building | 0.38 AC",
@@ -338,16 +408,21 @@
                     vpd: "25,000+ VPD"
                 },
                 tiktokUGC: "https://www.tiktok.com/@creinsight/video/742895672345",
-                tiktokEffect: "https://www.tiktok.com/effect/cheshirebridge-4041054686",
                 w3w: "pouch.frozen.levels",
                 qrMapLink: "https://what3words.com/pouch.frozen.levels",
-                ugcEmbed: "🎥 TikTok Blueprint: <a href='https://www.tiktok.com/@creinsight/video/742895672345' target='_blank' style='color:#ff0050;'>Cheshire Bridge Tour</a>",
-                hashtags: "#CheshireBridge #AtlantaRealEstate #IntownATL #CREDevelopment #MorningsideATL"
+                ugcEmbed: "🎥 TikTok Blueprint: <a href='https://www.tiktok.com/@creinsight/video/742895672345' target='_blank' style='color:#ff6b35;'>Cheshire Bridge Tour</a>",
+                hashtags: "#CheshireBridge #AtlantaRealEstate #IntownATL #CREDevelopment"
             },
             {
                 name: "4255 Shirley Dr | QSR / Industrial",
                 location: [-84.5035, 33.7360],
                 info: "Generous 0.62 AC lot, 29 parking spaces, ideal for QSR or ghost kitchen. Next to Fulton County development.",
+                price: "$465,000",
+                priceValue: 465000,
+                buildingClass: "C",
+                sqft: 1700,
+                emoji: "🍟",
+                propertyTypeIcon: "🍟",
                 creData: {
                     propertyType: "Retail / Freestanding",
                     sqft: "1,700 SF building | 0.62 AC",
@@ -358,16 +433,21 @@
                     parking: "29 spaces"
                 },
                 tiktokUGC: "https://www.tiktok.com/@atlantacommercial/video/743112567891",
-                tiktokEffect: "https://www.tiktok.com/effect/qsr-opportunity-4041054687",
                 w3w: "glare.faded.fakes",
                 qrMapLink: "https://what3words.com/glare.faded.fakes",
-                ugcEmbed: "🍟 TikTok UGC: <a href='https://www.tiktok.com/@atlantacommercial/video/743112567891' target='_blank' style='color:#ff0050;'>QSR Potential Reel</a>",
-                hashtags: "#AtlantaRealEstate #WestAtlantaCRE #QSRInvesting #1031Exchange #FultonIndustrial"
+                ugcEmbed: "🍟 TikTok UGC: <a href='https://www.tiktok.com/@atlantacommercial/video/743112567891' target='_blank' style='color:#ff6b35;'>QSR Potential Reel</a>",
+                hashtags: "#AtlantaRealEstate #WestAtlantaCRE #QSRInvesting"
             },
             {
                 name: "3640 Royal South Pky | Class A Distribution",
                 location: [-84.5225, 33.6355],
                 info: "116,848 SF Class A warehouse, 32 dock-high doors, 24' clear height, ESFR sprinklers. I-85 access.",
+                price: "Lease",
+                priceValue: 0,
+                buildingClass: "A",
+                sqft: 116848,
+                emoji: "🚛",
+                propertyTypeIcon: "🚛",
                 creData: {
                     propertyType: "Industrial / Distribution",
                     sqft: "116,848 SF",
@@ -378,16 +458,21 @@
                     dockDoors: "32 dock + 2 drive-in"
                 },
                 tiktokUGC: "https://www.tiktok.com/@industrialre/video/742338910234",
-                tiktokEffect: "https://www.tiktok.com/effect/logisticshub-4041054688",
                 w3w: "faded.stole.glaze",
                 qrMapLink: "https://what3words.com/faded.stole.glaze",
-                ugcEmbed: "🚛 Drone Logistics: <a href='https://www.tiktok.com/@industrialre/video/742338910234' target='_blank' style='color:#ff0050;'>Warehouse Tour</a>",
-                hashtags: "#ATLwarehouse #AtlantaLogistics #IndustrialRealEstate #WarehouseForLease #SupplyChain"
+                ugcEmbed: "🚛 Drone Logistics: <a href='https://www.tiktok.com/@industrialre/video/742338910234' target='_blank' style='color:#ff6b35;'>Warehouse Tour</a>",
+                hashtags: "#ATLwarehouse #AtlantaLogistics #IndustrialRealEstate"
             },
             {
                 name: "French Quarter Apartments | 23 Units",
                 location: [-84.3610, 33.8485],
                 info: "23-unit multifamily, 52% occupancy → massive value-add. Walkable to Lenox Square. Furnished Airbnb units.",
+                price: "$3,450,000",
+                priceValue: 3450000,
+                buildingClass: "B",
+                sqft: 9200,
+                emoji: "🏘️",
+                propertyTypeIcon: "🏘️",
                 creData: {
                     propertyType: "Multifamily / Mid-Rise",
                     sqft: "9,200 SF building",
@@ -398,16 +483,21 @@
                     avgRent: "$1,101 → potential $1,536"
                 },
                 tiktokUGC: "https://www.tiktok.com/@atlantacreative/video/744025671234",
-                tiktokEffect: "https://www.tiktok.com/effect/multifamily-4041054689",
                 w3w: "filled.count.soap",
                 qrMapLink: "https://what3words.com/filled.count.soap",
-                ugcEmbed: "🏘️ UGC Walkthrough: <a href='https://www.tiktok.com/@atlantacreative/video/744025671234' target='_blank' style='color:#ff0050;'>Buckhead Units</a>",
-                hashtags: "#BuckheadRealEstate #MultifamilyInvesting #CRE #FrenchQuarterApartments"
+                ugcEmbed: "🏘️ UGC Walkthrough: <a href='https://www.tiktok.com/@atlantacreative/video/744025671234' target='_blank' style='color:#ff6b35;'>Buckhead Units</a>",
+                hashtags: "#BuckheadRealEstate #MultifamilyInvesting #CRE"
             },
             {
                 name: "3300 Hamilton Blvd SE | Turn-Key Industrial",
                 location: [-84.4112, 33.6635],
                 info: "Fully renovated 2021 warehouse, 13,257 SF, 3 dock doors, fenced yard, near ATL airport.",
+                price: "$1,650,000",
+                priceValue: 1650000,
+                buildingClass: "B",
+                sqft: 13257,
+                emoji: "🏭",
+                propertyTypeIcon: "🏭",
                 creData: {
                     propertyType: "Industrial / Warehouse",
                     sqft: "13,257 SF | ~1 Acre",
@@ -418,16 +508,21 @@
                     dockDoors: "3 dock-high + indoor parking"
                 },
                 tiktokUGC: "https://www.tiktok.com/effect/sorrywiresquare-4041054686",
-                tiktokEffect: "https://www.tiktok.com/effect/sorrywiresquare-4041054686",
                 w3w: "sorry.wire.square",
                 qrMapLink: "https://what3words.com/sorry.wire.square",
-                ugcEmbed: "✈️ TikTok Effect: <a href='https://www.tiktok.com/effect/sorrywiresquare-4041054686' target='_blank' style='color:#ff0050;'>AR Filter Tour</a>",
-                hashtags: "#ATLwarehouse #AtlantaIndustrial #AirportRealEstate #HapevilleGA #IndustrialRenovation"
+                ugcEmbed: "✈️ TikTok Effect: <a href='https://www.tiktok.com/effect/sorrywiresquare-4041054686' target='_blank' style='color:#ff6b35;'>AR Filter Tour</a>",
+                hashtags: "#ATLwarehouse #AtlantaIndustrial #AirportRealEstate"
             },
             {
                 name: "1239 Willingham Dr | Ghost Kitchen",
                 location: [-84.4510, 33.6850],
                 info: "Unique 8,894 SF with prep kitchen & cooler, 1 dock door + expansion potential. Near I-85 & airport.",
+                price: "$1,500,000",
+                priceValue: 1500000,
+                buildingClass: "C",
+                sqft: 8894,
+                emoji: "🍳",
+                propertyTypeIcon: "🍳",
                 creData: {
                     propertyType: "Industrial / Food Prep",
                     sqft: "8,894 SF | 1.12 AC",
@@ -438,16 +533,21 @@
                     kitchen: "Prep kitchen + cooler"
                 },
                 tiktokUGC: "https://www.tiktok.com/@chefstartup/video/744112345678",
-                tiktokEffect: "https://www.tiktok.com/effect/ghostkitchen-4041054690",
                 w3w: "guarded.pushed.bids",
                 qrMapLink: "https://what3words.com/guarded.pushed.bids",
-                ugcEmbed: "🍳 Food Logistics: <a href='https://www.tiktok.com/@chefstartup/video/744112345678' target='_blank' style='color:#ff0050;'>Ghost Kitchen Tour</a>",
-                hashtags: "#GhostKitchen #EastPointCRE #FoodLogistics #AtlantaIndustrial #Cremarket"
+                ugcEmbed: "🍳 Food Logistics: <a href='https://www.tiktok.com/@chefstartup/video/744112345678' target='_blank' style='color:#ff6b35;'>Ghost Kitchen Tour</a>",
+                hashtags: "#GhostKitchen #EastPointCRE #FoodLogistics"
             },
             {
                 name: "650 Fairburn Rd SW | Heavy Industrial Yard",
                 location: [-84.4740, 33.7100],
                 info: "3 buildings, 31,822 SF on 9.54 acres, cleared yard space, 20' clear height, I-285 access.",
+                price: "$4,000,000",
+                priceValue: 4000000,
+                buildingClass: "C",
+                sqft: 31822,
+                emoji: "🚜",
+                propertyTypeIcon: "🚜",
                 creData: {
                     propertyType: "Industrial / Yard Space",
                     sqft: "31,822 SF (3 bldgs) | 9.54 AC",
@@ -458,16 +558,21 @@
                     yard: "4-5 cleared acres"
                 },
                 tiktokUGC: "https://www.tiktok.com/@industrialyards/video/744998776655",
-                tiktokEffect: "https://www.tiktok.com/effect/yardspace-4041054691",
                 w3w: "guilty.limit.voters",
                 qrMapLink: "https://what3words.com/guilty.limit.voters",
-                ugcEmbed: "🏗️ Yard Space Tour: <a href='https://www.tiktok.com/@industrialyards/video/744998776655' target='_blank' style='color:#ff0050;'>9.5 Acre Site</a>",
-                hashtags: "#ATLwarehouse #YardSpace #SWAtlanta #OwnerUser #TruckParkingAtlanta"
+                ugcEmbed: "🏗️ Yard Space Tour: <a href='https://www.tiktok.com/@industrialyards/video/744998776655' target='_blank' style='color:#ff6b35;'>9.5 Acre Site</a>",
+                hashtags: "#ATLwarehouse #YardSpace #SWAtlanta"
             },
             {
                 name: "675 Great Southwest Pkwy | Logistics Hub",
                 location: [-84.5385, 33.7240],
                 info: "High-velocity distribution, dock-high doors, immediate I-20 access, Fulton Industrial core.",
+                price: "Lease",
+                priceValue: 0,
+                buildingClass: "A",
+                sqft: 15000,
+                emoji: "📦",
+                propertyTypeIcon: "📦",
                 creData: {
                     propertyType: "Industrial / Flex",
                     sqft: "10,000 - 15,000 SF flex",
@@ -477,12 +582,11 @@
                     zoning: "M-1A",
                     intermodal: "Norfolk Southern nearby"
                 },
-                tiktokUGC: "https://www.tiktok.com/effect/grownupbotherssurveys-4041072542",
-                tiktokEffect: "https://www.tiktok.com/effect/grownupbotherssurveys-4041072542",
+                tiktokUGC: "https://www.tiktok.com/@logisticshub/video/744998776656",
                 w3w: "flame.hurry.soft",
                 qrMapLink: "https://what3words.com/flame.hurry.soft",
-                ugcEmbed: "📦 TikTok Effect: <a href='https://www.tiktok.com/effect/grownupbotherssurveys-4041072542' target='_blank' style='color:#ff0050;'>3PL Interactive</a>",
-                hashtags: "#FultonIndustrial #AtlantaLogistics #DistributionCenter #CRE #Cremarket"
+                ugcEmbed: "📦 Logistics Tour: <a href='https://www.tiktok.com/@logisticshub/video/744998776656' target='_blank' style='color:#ff6b35;'>Distribution Walkthrough</a>",
+                hashtags: "#FultonIndustrial #AtlantaLogistics #DistributionCenter"
             }
         ];
 
@@ -499,91 +603,123 @@
         map.addControl(new mapboxgl.NavigationControl({ showCompass: true }));
         map.addControl(new mapboxgl.ScaleControl());
 
+        let markers = [];
+
         function formatW3WHashtag(w3w) { return w3w.replace(/\./g, ''); }
 
-        // Create markers and popups with TikTok-first content
-        creProperties.forEach(prop => {
+        function getClassColor(propertyClass) {
+            switch(propertyClass) {
+                case 'A': return '#ffd700';
+                case 'B': return '#c0c0c0';
+                default: return '#cd7f32';
+            }
+        }
+
+        function createMarker(property, mapInstance) {
             const el = document.createElement('div');
             el.className = 'cre-marker';
-
-            const data = prop.creData;
+            el.innerHTML = property.emoji;
+            el.style.background = `radial-gradient(circle at 30% 30%, ${getClassColor(property.buildingClass)}, #2a2a2a)`;
+            el.style.boxShadow = `0 0 12px ${getClassColor(property.buildingClass)}80`;
+            
+            const data = property.creData;
             const capDisplay = data.capRate ? `${data.capRate}` : '—';
             const popupHTML = `
                 <div class="property-card">
                     <div class="card-media">
-                        <i class="fab fa-tiktok"></i>
-                        <div class="card-badge">🎵 VIRAL READY</div>
+                        <i class="fas fa-chart-line" style="font-size:48px; color:#ff6b35;"></i>
+                        <div class="card-badge">${property.emoji} ${property.buildingClass} Class</div>
                     </div>
                     <div class="card-content">
                         <div class="property-name">
-                            ${prop.name} <i class="fab fa-tiktok" style="color:#ff0050; font-size:1rem;"></i>
+                            ${property.name} <span class="cost-badge">${property.price}</span>
                         </div>
-                        <div style="font-size:0.8rem; margin-bottom:6px;">${prop.info}</div>
+                        <div style="font-size:0.75rem; margin-bottom:6px;">${property.info}</div>
                         <div class="cre-data">
                             <div class="data-point"><span>Property Type</span><strong>${data.propertyType}</strong></div>
-                            <div class="data-point"><span>Size / Land</span><strong>${data.sqft}</strong></div>
+                            <div class="data-point"><span>Size</span><strong>${data.sqft}</strong></div>
                             <div class="data-point"><span>Occupancy</span><strong>${data.occupancy}</strong></div>
-                            <div class="data-point"><span>Cap Rate / Upside</span><strong>${capDisplay}</strong></div>
+                            <div class="data-point"><span>Cap Rate</span><strong>${capDisplay}</strong></div>
                             ${data.zoning ? `<div class="data-point"><span>Zoning</span><strong>${data.zoning}</strong></div>` : ''}
                             ${data.yearBuilt ? `<div class="data-point"><span>Year Built</span><strong>${data.yearBuilt}</strong></div>` : ''}
-                            ${data.vpd ? `<div class="data-point"><span>Traffic</span><strong>${data.vpd}</strong></div>` : ''}
-                            ${data.dockDoors ? `<div class="data-point"><span>Loading</span><strong>${data.dockDoors}</strong></div>` : ''}
                         </div>
                         <div class="w3w-link">
-                            📍 <a href="https://what3words.com/${prop.w3w}" target="_blank" style="color:#ff0050;">///${prop.w3w}</a> — exact property pin
+                            📍 <a href="${property.qrMapLink}" target="_blank" style="color:#ff6b35;">///${property.w3w}</a> — click for exact pin
                         </div>
                         <div class="tiktok-badge">
-                            <i class="fab fa-tiktok" style="color:#ff0050; font-size:1.2rem;"></i>
+                            <i class="fab fa-tiktok" style="color:#ff6b35; font-size:1.2rem;"></i>
                             <strong>TIKTOK EXCLUSIVE</strong>
                         </div>
                         <div class="action-buttons">
-                            <a href="${prop.tiktokUGC}" target="_blank" class="btn-sm"><i class="fab fa-tiktok"></i> Watch Video</a>
-                            <a href="${prop.tiktokEffect || prop.tiktokUGC}" target="_blank" class="btn-sm"><i class="fas fa-magic"></i> AR Effect</a>
-                            <a href="${prop.qrMapLink}" target="_blank" class="btn-sm"><i class="fas fa-qrcode"></i> Map QR</a>
+                            <a href="${property.tiktokUGC}" target="_blank" class="btn-sm"><i class="fab fa-tiktok"></i> Watch Video</a>
+                            <a href="${property.qrMapLink}" target="_blank" class="btn-sm"><i class="fas fa-qrcode"></i> Map QR</a>
                         </div>
                         <div class="hashtag-footer">
-                            <i class="fas fa-hashtag"></i> #${formatW3WHashtag(prop.w3w)} · ${prop.hashtags} · #TikTokCRE #NoLoopNet
+                            <i class="fas fa-hashtag"></i> #${formatW3WHashtag(property.w3w)} · ${property.hashtags} · #CREmarket
                         </div>
                     </div>
                 </div>
             `;
             const popup = new mapboxgl.Popup({ offset: 28, closeButton: true, closeOnClick: false }).setHTML(popupHTML);
-            new mapboxgl.Marker(el).setLngLat(prop.location).setPopup(popup).addTo(map);
+            const marker = new mapboxgl.Marker(el).setLngLat(property.location).setPopup(popup).addTo(mapInstance);
+            return { marker, property };
+        }
+
+        function renderMarkers(filteredProperties) {
+            markers.forEach(m => m.marker.remove());
+            markers = [];
+            filteredProperties.forEach(prop => {
+                markers.push(createMarker(prop, map));
+            });
+        }
+
+        function filterProperties() {
+            const priceValue = document.getElementById('priceFilter').value;
+            const classValue = document.getElementById('classFilter').value;
+            const minSqft = parseInt(document.getElementById('sqftFilter').value) || 0;
+            
+            let filtered = creProperties.filter(prop => {
+                if (classValue !== 'all' && prop.buildingClass !== classValue) return false;
+                if (minSqft > 0 && prop.sqft < minSqft) return false;
+                if (priceValue === 'under2m' && (prop.priceValue >= 2000000 && prop.priceValue !== 0)) return false;
+                if (priceValue === '2m-5m' && (prop.priceValue < 2000000 || prop.priceValue > 5000000)) return false;
+                if (priceValue === 'over5m' && prop.priceValue <= 5000000) return false;
+                return true;
+            });
+            renderMarkers(filtered);
+        }
+
+        function resetFilters() {
+            document.getElementById('priceFilter').value = 'all';
+            document.getElementById('classFilter').value = 'all';
+            document.getElementById('sqftFilter').value = '';
+            renderMarkers(creProperties);
+        }
+
+        map.on('load', () => {
+            map.setFog({});
+            renderMarkers(creProperties);
         });
 
-        map.on('load', () => { map.setFog({}); });
-
-        window.searchW3W = function(event) {
-            if (event.key === "Enter") {
-                let words = document.getElementById("w3w-input").value.trim();
-                if (!words) return;
-                what3words.api.convertToCoordinates({ words: words })
-                    .then(resp => {
-                        if (resp && resp.coordinates) {
-                            map.flyTo({ center: [resp.coordinates.lng, resp.coordinates.lat], zoom: 18, duration: 1300 });
-                        } else alert("what3words not found. Try e.g. pouch.frozen.levels");
-                    })
-                    .catch(() => alert("Invalid what3words"));
-            }
-        };
-
-        // Telegram CRE Insight Roll
+        document.getElementById('applyFilterBtn').addEventListener('click', filterProperties);
+        document.getElementById('resetFilterBtn').addEventListener('click', resetFilters);
+        
         function rollDiceInsight() {
             const roll = Math.floor(Math.random() * 6) + 1;
             const randomProp = creProperties[Math.floor(Math.random() * creProperties.length)];
             const marketFacts = [
-                `📊 ATL industrial vacancy: 4.2% | Rents up +8.1% YoY | TikTok virality drives deal flow`,
+                `📊 ATL industrial vacancy: 4.2% | Rents up +8.1% YoY | ${randomProp.emoji} ${randomProp.name}`,
                 `🏗️ Multifamily value-add: 52% occupancy → 95% potential → IRRs 18%+ pro-forma`,
                 `💸 Cap rate compression: Class A office now 6.2-6.8% in Midtown, investor demand high`,
                 `📍 Hot zone: Cheshire Bridge MRC-3 zoning allows 5-7 story mixed-use, 25k VPD`,
                 `📈 Industrial outdoor storage (IOS) premiums +22% across SW Atlanta`,
-                `🔑 TikTok viral asset: ${randomProp.name} — ${randomProp.creData.propertyType} with ${randomProp.creData.occupancy} occupancy. Watch the UGC!`
+                `🔑 TikTok viral asset: ${randomProp.name} — ${randomProp.creData.propertyType} | ${randomProp.price}`
             ];
             const insight = marketFacts[(roll - 1) % marketFacts.length];
             const center = map.getCenter();
             new mapboxgl.Popup({ closeOnClick: true, className: 'insight-popup', closeButton: false })
                 .setLngLat([center.lng, center.lat])
-                .setHTML(`<div style="background:#0a1420e6; backdrop-filter:blur(12px); padding:14px 20px; border-radius:36px; border-left:5px solid #ff0050; font-weight:500;"><i class="fab fa-telegram-plane"></i> <strong>🎲 TELEGRAM CRE INSIGHT • ROLL ${roll}</strong><br>${insight}</div>`)
+                .setHTML(`<div style="background:#0a1420e6; backdrop-filter:blur(12px); padding:14px 20px; border-radius:36px; border-left:5px solid #ff6b35; font-weight:500;"><i class="fab fa-telegram-plane"></i> <strong>🎲 TELEGRAM CRE INSIGHT • ROLL ${roll}</strong><br>${insight}</div>`)
                 .addTo(map);
             setTimeout(() => {
                 const popups = document.getElementsByClassName('mapboxgl-popup');
@@ -605,8 +741,6 @@
             creProperties.forEach(p => bounds.extend(p.location));
             map.fitBounds(bounds, { padding: 70, duration: 1000 });
         });
-
-        console.log("🎵 TikTok-First CRE Map — LoopNet replaced with TikTok UGC, all CRE data points active");
     </script>
 </body>
 </html>
